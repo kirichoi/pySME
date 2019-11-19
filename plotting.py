@@ -16,12 +16,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
-path = './output'
+path = './output_leukemia'
 
 # Parameters
 N = 12 # Number of subjects
-t_n = 4 # Number of time points
-iplN = 141 # Number of interpolated time points
+t_n = 5 # Number of time points
+iplN = 121 # Number of interpolated time points
 
 showFig = False # Flag to plot figures
 figSize = (20,16) # Size of figures
@@ -31,8 +31,8 @@ plotSMEMeanOnly = False # Only plot SME mean trace
 mergePlot = True # Merge multiple plots
 plotHeatmap = False # Plot heatmap comparing two data groups
 
-t = np.array([1,3,5,7])
-iplT = np.linspace(0, 7, iplN)
+t = np.array([1,2,4,6,7])
+iplT = np.linspace(1, 7, iplN)
 
 fulldata = pd.read_csv(os.path.join(path, 'fulldata.csv')).iloc[:, 1:]
 data_fid = np.array(fulldata.columns[3:])
@@ -47,9 +47,11 @@ ys1mu = np.array(pd.read_csv(os.path.join(path, 'ys1mu.csv')).iloc[:, 1:])
 ys0vHat = np.empty((len(data_fid), len(grp0), iplN))
 ys0vHatDir = os.path.join(path, 'ys0vHat')
 ys0vHatF = [f for f in os.listdir(ys0vHatDir) if os.path.isfile(os.path.join(ys0vHatDir, f))]
+ys0vHatF.sort(key=lambda x: int(''.join(filter(str.isdigit, x))))
 ys1vHat = np.empty((len(data_fid), len(grp1), iplN))
 ys1vHatDir = os.path.join(path, 'ys1vHat')
 ys1vHatF = [f for f in os.listdir(ys1vHatDir) if os.path.isfile(os.path.join(ys1vHatDir, f))]
+ys1vHatF.sort(key=lambda x: int(''.join(filter(str.isdigit, x))))
 
 for i in range(len(ys0vHatF)):
     ys0vHat[i] = pd.read_csv(os.path.join(ys0vHatDir, ys0vHatF[i])).iloc[:, 1:]
