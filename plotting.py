@@ -36,6 +36,8 @@ iplT = np.linspace(1, 7, iplN)
 
 fulldata = pd.read_csv(os.path.join(path, 'fulldata.csv')).iloc[:, 1:]
 data_fid = np.array(fulldata.columns[3:])
+pval = pd.read_csv(os.path.join(path, 'pval.csv')).iloc[:, 1:]
+pval = pval.values.flatten()
 
 grp0_f = fulldata[(fulldata.grp == 0)]['ind']
 grp1_f = fulldata[(fulldata.grp == 1)]['ind']
